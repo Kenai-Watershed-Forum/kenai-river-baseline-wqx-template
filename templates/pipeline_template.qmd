@@ -1492,5 +1492,44 @@ cat("Detections in trip blanks (result_value > 0):",
 
 ## Part D: Flag + CDX Export
 
-TEMPLATE: CDX export (generate_cdx_export.R) is not yet ported into this template.
-See the per-year-repo architecture migration plan, Phase 2, step 2.
+```{r generate-cdx, message=FALSE, warning=FALSE}
+# Apply Result Status ID (Accepted/Rejected), finalize column format, and write
+# three CDX upload files: results_activities.csv, project.csv, station.csv.
+#
+# TEMPLATE: generate_cdx_export.R contains a filter that excludes Phosphorus from
+# EPA Method 200.8 if it is not in that year's QAPP. Confirm whether this filter
+# applies to {{YEAR}} before running; comment out in that script if not applicable.
+#
+# Requires: export_dat (with time_zone applied in Q32), cfg
+# Requires: WQP downloads in cfg$wqx_downloads_dir (populate manually before running)
+
+wqp_project_file <- file.path(cfg$wqx_downloads_dir, "project/project.csv")
+
+if (!file.exists(wqp_project_file)) {
+  message("Part D skipped: WQP downloads not yet present in ", cfg$wqx_downloads_dir,
+          "\nDownload project, station, and results files from WQP before running.")
+} else {
+  source(here("functions/generate_cdx_export.R"))
+}
+```
+
+### CDX Upload Files
+
+The following files are ready for upload to the EPA Water Quality Exchange Central Data Exchange (CDX) at <https://cdx.epa.gov/>:
+
+```{r cdx-file-summary, message=FALSE}
+cdx_files <- c(
+  here("other/output/results_activities.csv"),
+  here("other/output/project.csv"),
+  here("other/output/station.csv")
+)
+
+for (f in cdx_files) {
+  if (file.exists(f)) {
+    d <- read.csv(f)
+    cat(basename(f), ":", nrow(d), "rows\n")
+  } else {
+    cat(basename(f), ": NOT FOUND -- run generate_cdx_export.R\n")
+  }
+}
+```
