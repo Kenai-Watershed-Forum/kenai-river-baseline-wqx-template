@@ -1,0 +1,6 @@
+raw_parameter,analyte,epa_method,units
+Temperature,Water Temperature,170.1,deg C
+Conductivity,Specific Conductance,120.1,uS/cm
+DO,Dissolved Oxygen,360.1,mg/L
+Turbidity,Turbidity,180.1,NTU
+pH,pH,150.1,None
