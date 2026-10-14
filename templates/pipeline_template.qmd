@@ -63,6 +63,8 @@ cfg <- list(
   year                  = year,
   reference_dir         = here("reference_data"),
   templates_dir         = here("other/input/wqx_templates"),
+  # TEMPLATE: copy other/input/wqx_templates/AWQMS_KWF_Baseline_template.xlsx to
+  # AWQMS_KWF_Baseline_{year}.xlsx before running Part B; see that directory README.
   wqx_template_file     = here("other/input/wqx_templates",
                                 paste0("AWQMS_KWF_Baseline_", year, ".xlsx")),
   spring_data_dir       = spring_data_dir,
@@ -767,6 +769,40 @@ cat("Sites:", n_distinct(dat$monitoring_location_id), "\n")
 
 ## Part B: WQX Formatting
 
-TEMPLATE: Part B onward (WQX formatting, the QA/QC checklist, and CDX export) are
-not yet ported into this template. See the per-year-repo architecture migration
-plan, Phase 2, steps 2-4.
+```{r format-wqx, message=FALSE, warning=FALSE, include=FALSE}
+# Applies all lookup table joins (coordinates, result sample fraction, detection
+# condition, preservative, container), constructs WQX-formatted column names,
+# builds Activity IDs, and writes the provisional WQX intermediate CSV.
+#
+# format_wqx.R preserves any result_sample_fraction already set in Part A (e.g. the
+# EP200.8 dissolved/total distinction) and uses the lookup table only to fill in
+# unset fractions (nutrients, FC, TSS).
+#
+# Requires: dat, cfg, year, spring_sample_date
+# Reads (unmodified from the qaqc repo, via cfg$templates_dir):
+#   other/input/wqx_templates/wqx_template_matching_table.xlsx
+#   other/input/wqx_templates/analytes_list_manual_edit.csv
+#   cfg$wqx_template_file (AWQMS_KWF_Baseline_{year}.xlsx -- TEMPLATE: see that
+#     directory README; must exist under this name before running this chunk)
+# Produces: dat, dat_raw, all_dat; writes cfg$wqx_intermediate_path
+source(here("functions/format_wqx.R"))
+```
+
+### Provisional Results (Prior to QA/QC Review)
+
+The following table summarizes results after WQX formatting, before QA/QC evaluation.
+
+```{r provisional-summary, message=FALSE}
+read.csv(cfg$wqx_intermediate_path) |>
+  clean_names() |>
+  count(characteristic_name, result_analytical_method_id, activity_start_date) |>
+  arrange(activity_start_date, characteristic_name)
+```
+
+------------------------------------------------------------------------
+
+## Part C: QA/QC Checklist
+
+TEMPLATE: the 42-question QA/QC checklist and CDX export (Part D) are not yet
+ported into this template. See the per-year-repo architecture migration plan,
+Phase 2, steps 2-4.
