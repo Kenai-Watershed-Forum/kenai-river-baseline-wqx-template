@@ -12,6 +12,12 @@ edited:
   to `AWQMS_KWF_Baseline_{year}.xlsx` (the filename `cfg$wqx_template_file` expects)
   and verify EPA hasn't revised the template's column structure since the last
   year's submission.
+- `wqx_qaqc/wqx_qaqc_info.xlsx` - field-duplicate site lookup read by Part C's Q19
+  (RPD check), one sheet per year named `field_dup_sites_{year}`. A worked 2025
+  example sheet ships with this template; TEMPLATE: add a new sheet for each new
+  data year listing that year's field-duplicate sites.
+- `sample_holding_times.csv` - max holding time by EPA analytical method, read by
+  Part C's Q17 (hold time check).
 
 These rarely change, but unlike `reference_data/` (read by this template's own Part A
 code via `cfg$reference_dir`), they live here because the unmodified shared functions
