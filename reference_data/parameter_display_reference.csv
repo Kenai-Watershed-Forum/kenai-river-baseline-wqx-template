@@ -1,0 +1,25 @@
+analyte,display_name,group,group_order
+Arsenic,Arsenic,Dissolved metals,1
+Cadmium,Cadmium,Dissolved metals,1
+Chromium,Chromium,Dissolved metals,1
+Lead,Lead,Dissolved metals,1
+Copper,Copper,Metals,2
+Zinc,Zinc,Metals,2
+Calcium,Calcium,Total metals,3
+Iron,Iron,Total metals,3
+Magnesium,Magnesium,Total metals,3
+Total Nitrate/Nitrite-N,Nitrate + Nitrite (as N),Nutrients,4
+Total Phosphorus,Total Phosphorus,Nutrients,4
+Benzene,Benzene,Hydrocarbons (BTEX),5
+Toluene,Toluene,Hydrocarbons (BTEX),5
+Ethylbenzene,Ethylbenzene,Hydrocarbons (BTEX),5
+o-Xylene,o-Xylene,Hydrocarbons (BTEX),5
+P & M -Xylene,p/m-Xylene,Hydrocarbons (BTEX),5
+Xylenes (total),Total Xylenes,Hydrocarbons (BTEX),5
+Total Suspended Solids,Total Suspended Solids,Field parameters,6
+Fecal Coliform,Fecal Coliform,Field parameters,6
+Water Temperature,Water Temperature,Field parameters,6
+Specific Conductance,Specific Conductance,Field parameters,6
+Dissolved Oxygen,Dissolved Oxygen,Field parameters,6
+Turbidity,Turbidity,Field parameters,6
+pH,pH,Field parameters,6
